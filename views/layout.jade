@@ -2,6 +2,18 @@ doctype 5
 html
   head
     title= title
+    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/bootstrap-theme.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
+    header
     block content
+    footer
+      script(src='/socket.io/socket.io.js')
+      script(src='//code.jquery.com/jquery.js')
+      script(src='javascripts/bootstrap.min.js')
+      script
+        var socket = io.connect('http://localhost');
+        socket.on('totalUsers', function(data){
+          $("#count").html(data.totalUsers);
+        });

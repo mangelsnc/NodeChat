@@ -30,6 +30,25 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/users', user.list);
 
-http.createServer(app).listen(app.get('port'), function(){
+var server = http.createServer(app);
+
+var io = require('socket.io').listen(server);
+
+server.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
+});
+
+//Bindings de sockets
+var totalUsers = 0;
+io.sockets.on('connection', function(socket){
+	totalUsers++;
+	socket.emit('totalUsers', {'totalUsers': totalUsers});
+	console.log("Otro pollo en el corral");
+
+	socket.on('disconnect', function(){
+		totalUsers--;
+		socket.emit('totalUsers', {'totalUsers': totalUsers});
+		console.log("Un pollo abandona en el corral");
+	})
+
 });

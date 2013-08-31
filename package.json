@@ -1,28 +1,31 @@
 {
-  "name": "NodeChat",
-  "version": "0.0.1",
-  "description": "NodeJS Application for practice with SocketIO and Express",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "dependencies":{
-    "express": "3.x",
-    "socket.io": "0.9.x"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/mangelsnc/nodechat"
-  },
-  "keywords": [
-    "sockets",
-    "nodejs",
-    "node",
-    "chat"
-  ],
-  "author": "Miguel Ángel Sánchez Chordi",
-  "license": "BSD",
-  "bugs": {
-    "url": "https://github.com/mangelsnc/nodechat/issues"
-  }
+ "name": "NodeChat",
+ "version": "0.0.1",
+ "private": true,
+ "description": "NodeJS Application for practice with SocketIO and Express",
+ "main": "app.js",
+ "scripts": {
+   "test": "echo \"Error: no test specified\" && exit 1",
+   "start": "node app.js"
+ },
+ "dependencies":{
+   "express": "3.3.7",
+   "socket.io": "0.9.x",
+   "jade": "*"
+ },
+ "repository": {
+   "type": "git",
+   "url": "https://github.com/mangelsnc/nodechat"
+ },
+ "keywords": [
+   "sockets",
+   "nodejs",
+   "node",
+   "chat"
+ ],
+ "author": "Miguel Ángel Sánchez Chordi",
+ "license": "BSD",
+ "bugs": {
+   "url": "https://github.com/mangelsnc/nodechat/issues"
+ }
 }

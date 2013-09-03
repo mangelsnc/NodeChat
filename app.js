@@ -43,12 +43,20 @@ var totalUsers = 0;
 io.sockets.on('connection', function(socket){
 	totalUsers++;
 	socket.emit('totalUsers', {'totalUsers': totalUsers});
+	socket.broadcast.emit('totalUsers', {'totalUsers': totalUsers});
 	console.log("Otro pollo en el corral");
 
 	socket.on('disconnect', function(){
 		totalUsers--;
-		socket.emit('totalUsers', {'totalUsers': totalUsers});
+		socket.broadcast.emit('totalUsers', {'totalUsers': totalUsers});
 		console.log("Un pollo abandona en el corral");
 	})
+
+    socket.on('message-sent', function(data){
+        var d = new Date();
+        var formatTime =  d.toLocaleTimeString();
+        //socket.emit('message-broadcast', {'message': data.message, 'time': formatTime });
+        socket.broadcast.emit('message-broadcast', {'message': data.message, 'time': formatTime });
+    });
 
 });

@@ -5,15 +5,43 @@ html
     link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/bootstrap-theme.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
   body
     header
-    block content
+    article.container
+      block content
     footer
       script(src='/socket.io/socket.io.js')
       script(src='//code.jquery.com/jquery.js')
       script(src='javascripts/bootstrap.min.js')
       script
+        function sendMessage(){
+          var message = $("#mensaje").val();
+          socket.emit('message-sent', { 'message': message });
+          d = new Date();
+          $("#message-list").append(
+              "<li class='list-group-item alert-info'>" +
+                "<span class='badge'> " + 
+                  d.toLocaleTimeString() + " <span class='glyphicon glyphicon-time'></span>" + 
+                "</span> " + 
+                message + 
+              "</li>");
+        }
+        
+        $("#enviar").on("click",sendMessage);
+
         var socket = io.connect('http://localhost');
+        
         socket.on('totalUsers', function(data){
-          $("#count").html(data.totalUsers);
+          $("#count").html(" " + data.totalUsers + " usuarios conectados");
+        });
+
+        socket.on('message-broadcast', function(data){
+          $("#message-list").append(
+              "<li class='list-group-item alert-success'>" +
+                "<span class='badge'> " + 
+                  data.time + " <span class='glyphicon glyphicon-time'></span>" + 
+                "</span> " + 
+                data.message + 
+              "</li>");
         });

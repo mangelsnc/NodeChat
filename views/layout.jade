@@ -29,6 +29,9 @@ html
         }
         
         $("#enviar").on("click",sendMessage);
+        $("#limpiar-chat").on("click", function(){
+          $("#message-list").empty();
+        });
 
         var socket = io.connect('http://localhost');
         

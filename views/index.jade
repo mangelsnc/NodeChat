@@ -17,10 +17,19 @@ block content
               h3.panel-title Chat
             div.panel-body(style='height:200px;overflow-y:scroll')
               ul#message-list.list-group
+
       div.row  
         div.col-md-12
           div.input-group
             input#mensaje.form-control(type='text', placeholder="Escribe tu mensaje")
             span.input-group-btn
               button#enviar.btn.btn-default
-                span.glyphicon.glyphicon-comment    
+                span.glyphicon.glyphicon-comment
+      br
+      div.row.row-md-offset-2
+        div.col-md-12
+          div.btn-group.btn-group-sm
+            button#limpiar-chat.btn.btn-danger(title="Limpiar el Chat")
+              span.glyphicon.glyphicon-refresh
+            button.btn.btn-info(title="Avisar a los demás usuarios")
+              span.glyphicon.glyphicon-bullhorn  

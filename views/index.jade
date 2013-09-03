@@ -1,8 +1,26 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-  p 
-    span#count
-    |  usuarios conectados	
+  div.row
+    div.col-md-12
+      div.page-header
+        h1 #{title}
+        p 
+          span.glyphicon.glyphicon-user
+          span#count
+  div.row
+    div.col-md-6.col-md-offset-3
+      div.row  
+        div.col-md-12
+          div.panel.panel-default
+            div.panel-heading
+              h3.panel-title Chat
+            div.panel-body(style='height:200px;overflow-y:scroll')
+              ul#message-list.list-group
+      div.row  
+        div.col-md-12
+          div.input-group
+            input#mensaje.form-control(type='text', placeholder="Escribe tu mensaje")
+            span.input-group-btn
+              button#enviar.btn.btn-default
+                span.glyphicon.glyphicon-comment    

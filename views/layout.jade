@@ -13,38 +13,7 @@ html
     footer
       script(src='/socket.io/socket.io.js')
       script(src='//code.jquery.com/jquery.js')
-      script(src='javascripts/bootstrap.min.js')
-      script
-        function sendMessage(){
-          var message = $("#mensaje").val();
-          socket.emit('message-sent', { 'message': message });
-          d = new Date();
-          $("#message-list").append(
-              "<li class='list-group-item alert-info'>" +
-                "<span class='badge'> " + 
-                  d.toLocaleTimeString() + " <span class='glyphicon glyphicon-time'></span>" + 
-                "</span> " + 
-                message + 
-              "</li>");
-        }
+      script(src='/javascripts/underscore-min.js');
+      script(src='/javascripts/bootstrap.min.js')
+      script(src='/javascripts/chat.js');
         
-        $("#enviar").on("click",sendMessage);
-        $("#limpiar-chat").on("click", function(){
-          $("#message-list").empty();
-        });
-
-        var socket = io.connect('http://localhost');
-        
-        socket.on('totalUsers', function(data){
-          $("#count").html(" " + data.totalUsers + " usuarios conectados");
-        });
-
-        socket.on('message-broadcast', function(data){
-          $("#message-list").append(
-              "<li class='list-group-item alert-success'>" +
-                "<span class='badge'> " + 
-                  data.time + " <span class='glyphicon glyphicon-time'></span>" + 
-                "</span> " + 
-                data.message + 
-              "</li>");
-        });

@@ -8,6 +8,17 @@ block content
         p 
           span.glyphicon.glyphicon-user
           span#count
+  div.row 
+    div.col-md-6.col-md-offset-3#flashes
+  div.row
+    div.col-md-3
+    div.col-md-5
+        div.input-group
+          span.input-group-addon @
+          input(type="text", name="nickname", id="nickname", placeholder='Intrduce tu nombre de usuario').form-control
+    div.col-md-1
+      input(type="submit", id="set-nick", value="Guardar").btn.btn-default.pull-right
+    div.col-md-3 
   div.row
     div.col-md-6.col-md-offset-3
       div.row  
@@ -29,7 +40,21 @@ block content
       div.row.row-md-offset-2
         div.col-md-12
           div.btn-group.btn-group-sm
-            button#limpiar-chat.btn.btn-danger(title="Limpiar el Chat")
+            button#limpiar-chat.btn.btn-success(title="Limpiar el Chat")
               span.glyphicon.glyphicon-refresh
             button.btn.btn-info(title="Avisar a los demás usuarios")
-              span.glyphicon.glyphicon-bullhorn  
+              span.glyphicon.glyphicon-bullhorn
+            a(data-toggle="modal", href="#popup-usuarios").btn.btn-warning
+              span.glyphicon.glyphicon-list
+            button#desconectar.btn.btn-danger(title="Desconectar del chat")
+              span.glyphicon.glyphicon-off    
+
+  div#popup-usuarios.modal.fade
+    div.modal-dialog
+      div.modal-content
+        div.modal-header
+          h2 Usuarios conectados
+        div.modal-body
+          ul#listado-usuarios.list-group
+        div.modal-footer
+          button.btn.btn-danger(data-dismiss="modal") Cerrar

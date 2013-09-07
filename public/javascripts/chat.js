@@ -1,10 +1,11 @@
 //Helper functions
+
 function sendMessage(){
   var message = $("#mensaje").val();
   socket.emit('message-sent', { 'message': message });
   d = new Date();
   $("#message-list").append(
-      "<li class='list-group-item alert-info'>" +
+      "<li class='list-group-item alert-info' style='margin-bottom:10px;'>" +
         "<span class='badge'> " + 
           d.toLocaleTimeString() + " <span class='glyphicon glyphicon-time'></span>" + 
         "</span> " + 
@@ -15,6 +16,7 @@ function sendMessage(){
 function sendNick(event){
   event.preventDefault();
   var nick = $("#nickname").val();
+  console.log("entra");
   socket.emit("set-nickname", { 'nick': nick});
 }
 
@@ -26,6 +28,12 @@ function clearFlashes(){
 //Event bindings
 $(document).ready(function(){
   $("#enviar").on("click",sendMessage);
+  $("#mensaje").keypress(function(event){
+    if(event.keyCode == 13){
+      sendMessage();
+    }
+  });
+  
   $("#limpiar-chat").on("click", function(){
     $("#message-list").empty();
   });
@@ -34,7 +42,11 @@ $(document).ready(function(){
 
   $("#desconectar").on("click", function(){
     socket.disconnect();
+    $("#chat-window").hide();
+    $("#nickname-window").show();
+    socket.socket.connect();
   });
+
 })
 
 
@@ -50,13 +62,15 @@ socket.on('nick-exists', function(data){
 });
 
 socket.on('nick-saved', function(data){
-  $("#flashes").html("<div class='alert alert-success'>Welcome " + data.nick + "</div>");
-  setTimeout(clearFlashes, 3000)
+  //$("#flashes").html("<div class='alert alert-success'>Welcome " + data.nick + "</div>");
+  clearFlashes();
+  $("#chat-window").show();
+  $("#nickname-window").hide();
 });
 
 socket.on('message-broadcast', function(data){
   $("#message-list").append(
-      "<li class='list-group-item alert-success'>" +
+      "<li class='list-group-item alert-success' style='margin-bottom:10px;'>" +
         "<span class='badge'> " + 
           data.time + " <span class='glyphicon glyphicon-time'></span>" + 
         "</span> " + 
@@ -65,6 +79,7 @@ socket.on('message-broadcast', function(data){
 });
 
 socket.on("userList", function(data){
+  $("#listado-usuarios").empty();
   _.each(data.userList, function(nick){
     $("#listado-usuarios").append("<li class='list-group-item'>" + nick + "</li>");
   });

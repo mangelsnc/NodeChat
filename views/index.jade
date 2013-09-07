@@ -1,16 +1,9 @@
 extends layout
 
-block content
-  div.row
-    div.col-md-12
-      div.page-header
-        h1 #{title}
-        p 
-          span.glyphicon.glyphicon-user
-          span#count
+block content    
   div.row 
     div.col-md-6.col-md-offset-3#flashes
-  div.row
+  div#nickname-window.row
     div.col-md-3
     div.col-md-5
         div.input-group
@@ -19,7 +12,8 @@ block content
     div.col-md-1
       input(type="submit", id="set-nick", value="Guardar").btn.btn-default.pull-right
     div.col-md-3 
-  div.row
+  
+  div#chat-window.row(style="display:none")
     div.col-md-6.col-md-offset-3
       div.row  
         div.col-md-12
@@ -48,7 +42,7 @@ block content
               span.glyphicon.glyphicon-list
             button#desconectar.btn.btn-danger(title="Desconectar del chat")
               span.glyphicon.glyphicon-off    
-
+              
   div#popup-usuarios.modal.fade
     div.modal-dialog
       div.modal-content

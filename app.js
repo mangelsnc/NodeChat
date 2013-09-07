@@ -44,15 +44,20 @@ var totalUsers = 0;
 var nicknames = [];
 io.sockets.on('connection', function(socket){
 	totalUsers++;
-	socket.emit('totalUsers', {'totalUsers': totalUsers});
-	socket.broadcast.emit('totalUsers', {'totalUsers': totalUsers});
+	socket.emit('totalUsers', {'totalUsers': nicknames.length});
+	socket.broadcast.emit('totalUsers', {'totalUsers': nicknames.length});
     socket.broadcast.emit("userList",{'userList': nicknames});
-	console.log("Otro pollo en el corral");
+    d = new Date();
+	console.log("[" + d.toLocaleTimeString() + "] Otro pollo en el corral");
 
 	socket.on('disconnect', function(){
 		totalUsers--;
-		socket.broadcast.emit('totalUsers', {'totalUsers': totalUsers});
-		console.log("Un pollo abandona en el corral");
+		socket.broadcast.emit('totalUsers', {'totalUsers': nicknames.length});
+        socket.get('nick', function(error, currentNick){
+            nicknames = _.filter(nicknames, function(item){ return item != currentNick; });
+        })
+        d = new Date();
+		console.log("[" + d.toLocaleTimeString() +"] Un pollo abandona en el corral");
         socket.broadcast.emit("userList",{'userList': nicknames});
 	});
 
@@ -63,7 +68,10 @@ io.sockets.on('connection', function(socket){
         }else{
             nicknames.push(data.nick);
             socket.set('nick', data.nick, function(){
+                socket.emit('totalUsers', {'totalUsers': nicknames.length});
+                socket.broadcast.emit('totalUsers', {'totalUsers': nicknames.length});
                 socket.emit("nick-saved",{'nick': data.nick});
+                socket.emit("userList",{'userList': nicknames});  
                 socket.broadcast.emit("userList",{'userList': nicknames});  
             });
             

@@ -17,7 +17,18 @@ function sendNick(event){
   event.preventDefault();
   var nick = $("#nickname").val();
   console.log("entra");
-  socket.emit("set-nickname", { 'nick': nick});
+  if(nick.length == 0){
+      $("#flashes").html("<div class='alert alert-danger'>El nick no puede ser vacío</div>")
+
+    return false;
+  }else if(nick.search(" ") != -1){
+      $("#flashes").html("<div class='alert alert-danger'>El nick no puede contener espacios</div>")  
+
+      return false;
+  }else{
+    socket.emit("set-nickname", { 'nick': nick});
+  }
+  
 }
 
 function clearFlashes(){

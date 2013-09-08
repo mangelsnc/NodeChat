@@ -8,7 +8,7 @@ block content
     div.col-md-5
         div.input-group
           span.input-group-addon @
-          input(type="text", name="nickname", id="nickname", placeholder='Intrduce tu nombre de usuario').form-control
+          input(type="text", name="nickname", id="nickname", required="required", placeholder='Intrduce tu nombre de usuario').form-control
     div.col-md-1
       input(type="submit", id="set-nick", value="Guardar").btn.btn-default.pull-right
     div.col-md-3 
@@ -42,7 +42,7 @@ block content
               span.glyphicon.glyphicon-list
             button#desconectar.btn.btn-danger(title="Desconectar del chat")
               span.glyphicon.glyphicon-off    
-              
+
   div#popup-usuarios.modal.fade
     div.modal-dialog
       div.modal-content

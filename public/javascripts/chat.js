@@ -1,7 +1,16 @@
 //Helper functions
+function moveScroll(){
+  $("#chat-panel").scrollTop($("#message-list").height());
+}
 
 function sendMessage(){
   var message = $("#mensaje").val();
+  $("#mensaje").val("");
+  
+  if(message.length == ""){
+    return false;
+  }
+  
   socket.emit('message-sent', { 'message': message });
   d = new Date();
   $("#message-list").append(
@@ -11,6 +20,7 @@ function sendMessage(){
         "</span> " + 
         "<strong>Tú:</strong> " + message + 
       "</li>");
+  moveScroll();
 }
   
 function sendNick(event){
@@ -87,6 +97,8 @@ socket.on('message-broadcast', function(data){
         "</span> " + 
         "<strong>" + data.nick + ": </strong>" + data.message + 
       "</li>");
+
+  moveScroll();
 });
 
 socket.on("userList", function(data){

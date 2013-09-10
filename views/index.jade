@@ -8,7 +8,7 @@ block content
     div.col-md-5
         div.input-group
           span.input-group-addon @
-          input(type="text", name="nickname", id="nickname", required="required", placeholder='Intrduce tu nombre de usuario').form-control
+          input(type="text", name="nickname", id="nickname", required="required", placeholder='Introduce tu nombre de usuario').form-control
     div.col-md-1
       input(type="submit", id="set-nick", value="Guardar").btn.btn-default.pull-right
     div.col-md-3 
@@ -20,7 +20,7 @@ block content
           div.panel.panel-default
             div.panel-heading
               h3.panel-title Chat
-            div.panel-body(style='height:200px;overflow-y:scroll')
+            div#chat-panel.panel-body(style='height:200px;overflow-y:scroll')
               ul#message-list.list-group
 
       div.row  
